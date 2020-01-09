@@ -20,7 +20,7 @@ damp_blue = [];
 freq_black = [];
 damp_black = [];
 
-h = figure;
+h = figure(3);
 hold on
 nn = 0;
 for jj = nStart:nEnd
@@ -97,7 +97,7 @@ for nn = 1:nF
     dSelected(nn) = d;
 end
 %% Plots
-h = figure;
+h = figure(4);
 hold on
 plot(freq_red,damp_red,'Or')
 xlim([0,fmax]);

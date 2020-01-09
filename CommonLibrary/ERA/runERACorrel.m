@@ -1,4 +1,4 @@
-function [fSelected,dSelected] = runERACorrel(yi,samplingRate,fmax,alpha,nCorrel)
+function [fSelected,dSelected,plotHandle] = runERACorrel(yi,samplingRate,fmax,alpha,nCorrel,CrudeERA)
 %% ERA using correlated input
 % Created by : R Cheung
 % Contact: r.c.m.cheung@bristol.ac.uk
@@ -19,5 +19,10 @@ df = samplingRate/N;
 [H0,H1] = genHankelMat(y,alpha);
 [P,D,Q] = svd(H0,'econ'); % SVD of H0 matrix  (using the "skinny" version)
 plotSVD(D); % plot SVD
-[fSelected,dSelected] = solveERA(H1,P,D,Q,dt,df,ys,fmax);
+
+if ~exist('CrudeERA','var')
+    [fSelected,dSelected] = solveERA(H1,P,D,Q,dt,df,ys,fmax);
+else
+    [fSelected,dSelected,plotHandle] = solveCrudeERA(H1,P,D,Q,dt,df,ys,fmax,3,10,0);
+end
 end
